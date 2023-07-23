@@ -1,0 +1,17 @@
+.game-display {
+  margin: auto;
+  font-size: var(--font-size-game);
+  text-transform: uppercase;
+  font-weight: 800;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: .35rem;
+}
+
+.tile-row {
+  display: flex;
+  justify-content: space-between;
+  gap: .35rem;
+}

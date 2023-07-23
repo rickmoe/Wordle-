@@ -1,11 +1,6 @@
 .keyboard {
-  width: 100%;
-  padding: calc(var(--font-size-key) * .4);
+  margin: calc(var(--font-size-key) * .4);
   font-size: var(--font-size-key);
-  
-  position: absolute;
-  bottom: 0;
-  left: 0;
   
   display: grid;
   grid-template-columns: repeat(20, 1fr);

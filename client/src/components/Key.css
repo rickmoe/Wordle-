@@ -1,5 +1,4 @@
 .key {
-  height: calc(var(--font-size-key) * 3);
   text-transform: uppercase;
   font-weight: 600;
   font-size: inherit;

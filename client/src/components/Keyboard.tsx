@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useKeydownHandler } from "../hooks/useKeydownHandler";
 import Key from "./Key";
 import "./Keyboard.css";
 
@@ -7,22 +7,9 @@ interface KeyboardProps {
 }
 
 const Keyboard = (props: KeyboardProps) => {
-  /* '>' represents the enter key while '<' represents delete */
+  // '>' represents the enter key while '<' represents delete
   const keyRows = ["qwertyuiop", "asdfghjkl", ">zxcvbnm<"];
-
-  useEffect(() => {
-    // const cbRef = useRef(detectKeyDown);
-    document.addEventListener("keydown", detectKeyDown);
-    return () => document.removeEventListener("keydown", detectKeyDown);
-  }, []);
-
-  const detectKeyDown = (event: KeyboardEvent) => {
-    //   event.preventDefault();
-    // console.log(event.key);
-    if (/^[a-z]$/i.test(event.key)) return props.handleInput(event.key);
-    if (event.key === "Backspace") return props.handleInput("<");
-    if (event.key === "Enter") return props.handleInput(">");
-  };
+  useKeydownHandler(props.handleInput);
 
   return (
     <section className="keyboard">

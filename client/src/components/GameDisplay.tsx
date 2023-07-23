@@ -1,3 +1,6 @@
+import GameTile from "./GameTile";
+import "./GameDisplay.css";
+
 interface GameDisplayProps {
   guesses: string[];
   currentGuess: string;
@@ -5,12 +8,20 @@ interface GameDisplayProps {
 
 const GameDisplay = (props: GameDisplayProps) => {
   return (
-    <>
+    <section className="game-display">
       {props.guesses.map((guess) => (
-        <h1 key={guess}>{guess}</h1>
+        <div className="tile-row">
+          {guess.split("").map((letter, index) => (
+            <GameTile key={`${guess}[${index}]`} letter={letter} />
+          ))}
+        </div>
       ))}
-      <h1>{props.currentGuess}</h1>
-    </>
+      <div className="tile-row">
+        {props.currentGuess.split("").map((letter, index) => (
+          <GameTile key={`${props.currentGuess}[${index}]`} letter={letter} />
+        ))}
+      </div>
+    </section>
   );
 };
 

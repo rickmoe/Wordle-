@@ -1,0 +1,12 @@
+.game-tile {
+  width: calc(var(--font-size-game) * 2.3);
+  height: calc(var(--font-size-game) * 2.3);
+  border: 1px solid var(--color-neutral-2);
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.game-tile.filled {
+  background-color: var(--color-neutral-2);
+}

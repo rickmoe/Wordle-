@@ -1,18 +1,18 @@
-import { useEffect } from "react";
+import { useGuesses } from "../hooks/useGuesses";
 import GameDisplay from "../components/GameDisplay";
 import Keyboard from "../components/Keyboard";
-import { useGuess } from "../hooks/useGuess";
 import "./Game.css";
 
 const Game = () => {
-  const guessLength = 5;
-  const { guesses, currentGuess, handleInput } = useGuess(guessLength);
-
-  useEffect(() => console.log("UPDATED!!!", currentGuess), [currentGuess]);
+  const wordLength = 5;
+  const { guesses, handleInput } = useGuesses(wordLength);
 
   return (
     <>
-      <GameDisplay guesses={guesses} currentGuess={currentGuess} />
+      <GameDisplay
+        guesses={guesses.past}
+        currentGuess={guesses.current.padEnd(wordLength, " ")}
+      />
       <Keyboard handleInput={handleInput} />
     </>
   );
