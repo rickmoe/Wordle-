@@ -1,0 +1,21 @@
+:root {
+  --nav-height: clamp(3.5rem, 8vw, 5rem);
+}
+
+nav {
+  height: var(--nav-height);
+  width: 100%;
+  background: var(--color-neutral-1);
+  border-bottom: 1px solid var(--color-neutral-2);
+  color: var(--color-contrast-1);
+  text-align: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+nav h1 {
+  font-size: var(--font-size-nav-title);
+}

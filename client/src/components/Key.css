@@ -1,0 +1,19 @@
+.key {
+  height: calc(var(--font-size-key) * 3);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: inherit;
+
+  background-color: var(--color-neutral-3);
+  color: inherit;
+  border: none;
+  border-radius: calc(var(--font-size-key) / 3);
+}
+
+.key#a {
+  grid-column: 2 / span 2;
+}
+
+.key#enter {
+  font-size: 0.6em;
+}
