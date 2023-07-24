@@ -8,5 +8,20 @@
   align-items: center;
 }
 .game-tile.filled {
+  border-color: var(--color-neutral-3);
+}
+
+.game-tile.gray,
+.game-tile.green,
+.game-tile.yellow {
+  border: 0;
+}
+.game-tile.gray {
   background-color: var(--color-neutral-2);
+}
+.game-tile.green {
+  background-color: var(--color-green);
+}
+.game-tile.yellow {
+  background-color: var(--color-yellow);
 }

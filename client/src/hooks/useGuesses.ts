@@ -1,8 +1,14 @@
 import { useCallback, useState } from "react";
 
 export const useGuesses = (wordLength: number) => {
-  type GuessesType = { current: string; past: string[] };
-  const [guesses, setGuesses] = useState<GuessesType>({
+  // Results follow the following convention: "green" is in
+  // the final word and in the correct spot, "yellow" is in
+  // the final word but in the wrong spot, and "gray" is not
+  // in the final word
+  type Result = "green" | "yellow" | "gray";
+  type CheckedGuess = { word: string; results: Result[] };
+  type Guesses = { current: string; past: CheckedGuess[] };
+  const [guesses, setGuesses] = useState<Guesses>({
     current: "",
     past: [],
   });
@@ -31,13 +37,23 @@ export const useGuesses = (wordLength: number) => {
     setGuesses((lastGuesses) => {
       if (
         lastGuesses.current.length < wordLength ||
-        lastGuesses.past.indexOf(lastGuesses.current) >= 0
+        lastGuesses.past.some((guess) => guess.word == lastGuesses.current)
       ) {
         return lastGuesses;
       }
+
+      const currentResults: Result[] = [
+        "gray",
+        "yellow",
+        "green",
+        "yellow",
+        "gray",
+      ];
+      const newEntry = { word: lastGuesses.current, results: currentResults };
+
       return {
         current: "",
-        past: [...lastGuesses.past, lastGuesses.current],
+        past: [...lastGuesses.past, newEntry],
       };
     });
   }, [wordLength]);

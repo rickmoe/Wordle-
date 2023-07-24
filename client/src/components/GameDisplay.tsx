@@ -1,26 +1,25 @@
 import GameTile from "./GameTile";
 import "./GameDisplay.css";
 
+type TileData = { letter: string; result?: "green" | "yellow" | "gray" };
 interface GameDisplayProps {
-  guesses: string[];
-  currentGuess: string;
+  tileData: TileData[][];
 }
 
 const GameDisplay = (props: GameDisplayProps) => {
   return (
     <section className="game-display">
-      {props.guesses.map((guess) => (
+      {props.tileData.map((tileRow) => (
         <div className="tile-row">
-          {guess.split("").map((letter, index) => (
-            <GameTile key={`${guess}[${index}]`} letter={letter} />
+          {tileRow.map((tile, index) => (
+            <GameTile
+              key={`${tileRow.map((tile) => tile.letter).join()}[${index}]`}
+              letter={tile.letter}
+              result={tile.result}
+            />
           ))}
         </div>
       ))}
-      <div className="tile-row">
-        {props.currentGuess.split("").map((letter, index) => (
-          <GameTile key={`${props.currentGuess}[${index}]`} letter={letter} />
-        ))}
-      </div>
     </section>
   );
 };
