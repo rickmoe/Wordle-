@@ -9,14 +9,10 @@ interface GameDisplayProps {
 const GameDisplay = (props: GameDisplayProps) => {
   return (
     <section className="game-display">
-      {props.tileData.map((tileRow) => (
-        <div className="tile-row">
-          {tileRow.map((tile, index) => (
-            <GameTile
-              key={`${tileRow.map((tile) => tile.letter).join()}[${index}]`}
-              letter={tile.letter}
-              result={tile.result}
-            />
+      {props.tileData.map((tileRow, rowNum) => (
+        <div key={rowNum} className="tile-row">
+          {tileRow.map((tile, colNum) => (
+            <GameTile key={colNum} letter={tile.letter} result={tile.result} />
           ))}
         </div>
       ))}

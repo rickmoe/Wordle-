@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { getWord } from "../api/api";
 
 export const useGuesses = (wordLength: number) => {
   // Results follow the following convention: "green" is in
@@ -42,13 +43,7 @@ export const useGuesses = (wordLength: number) => {
         return lastGuesses;
       }
 
-      const currentResults: Result[] = [
-        "gray",
-        "yellow",
-        "green",
-        "yellow",
-        "gray",
-      ];
+      const currentResults = checkGuess(lastGuesses.current, getWord());
       const newEntry = { word: lastGuesses.current, results: currentResults };
 
       return {
@@ -57,6 +52,29 @@ export const useGuesses = (wordLength: number) => {
       };
     });
   }, [wordLength]);
+
+  const checkGuess = (guess: string, targetWord: string): Result[] => {
+    const letterCount: { [key: string]: number } = targetWord
+      .split("")
+      .reduce((count: { [key: string]: number }, letter: string) => {
+        count[letter] = count[letter] ? count[letter] + 1 : 1;
+        return count;
+      }, {});
+    const result: Result[] = Array(wordLength).fill("gray");
+    for (let i = 0; i < wordLength; i++) {
+      if (guess[i] === targetWord[i]) {
+        letterCount[guess[i]]--;
+        result[i] = "green";
+      }
+    }
+    for (let i = 0; i < guess.length; i++) {
+      if (result[i] !== "green" && letterCount[guess[i]] > 0) {
+        letterCount[guess[i]]--;
+        result[i] = "yellow";
+      }
+    }
+    return result;
+  };
 
   const handleInput = useCallback(
     (letter: string): void => {
