@@ -5,8 +5,8 @@
 
 /******** API Methods ********/
 /*** Get ***/
-export const getWord = () => {
-  return "cheek";
+export const getWords = async () => {
+  return ["cheek", "rogue", "water"];
 };
 /*** Post ***/
 // Unused
