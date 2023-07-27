@@ -23,11 +23,8 @@ const getStatus = (guesses: CheckedGuess[], maxGuesses: number): GameStatus => {
 export const useGuesses = (
   wordLength: number,
   maxGuesses: number,
-  checkGuess: CheckFunction,
-  dequeueWord: VoidFunction,
-  fetchWordsIfNeeded: VoidFunction
+  checkGuess: CheckFunction
 ) => {
-  console.log("useGuesses");
   const [guesses, setGuesses] = useState<Guesses>({
     current: "",
     past: [],
@@ -52,9 +49,7 @@ export const useGuesses = (
   };
 
   const submitGuess = () => {
-    console.log("Submit");
     setGuesses((lastGuesses) => {
-      console.log("Set < Submit", lastGuesses);
       if (
         lastGuesses.current.length < wordLength ||
         lastGuesses.past.some((guess) => guess.word == lastGuesses.current)
@@ -64,7 +59,6 @@ export const useGuesses = (
 
       const currentResults = checkGuess(lastGuesses.current);
       const newEntry = { word: lastGuesses.current, results: currentResults };
-      console.log(lastGuesses.current, currentResults);
 
       return {
         current: "",
@@ -73,22 +67,13 @@ export const useGuesses = (
     });
   };
 
+  const routeGuessInput = (letter: string) => {
+    if (/^[a-z]$/i.test(letter)) pushGuess(letter.toLowerCase());
+    else if (letter === "<") popGuess();
+    else if (letter === ">") submitGuess();
+  };
+
   const resetGuesses = () => setGuesses({ current: "", past: [] });
 
-  const reset = () => {
-    dequeueWord();
-    fetchWordsIfNeeded();
-    resetGuesses();
-  };
-
-  const handleInput = (letter: string): void => {
-    if (status === "in progress") {
-      if (/^[a-z]$/i.test(letter)) pushGuess(letter.toLowerCase());
-      else if (letter === "<") popGuess();
-      else if (letter === ">") submitGuess();
-    } else if (status === "win" && letter === ">") reset();
-    else if (status === "lose" && letter === ">") reset();
-  };
-
-  return { guesses, handleInput, status };
+  return { guesses, status, routeGuessInput, resetGuesses };
 };

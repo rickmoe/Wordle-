@@ -8,7 +8,6 @@ let wordQueue: string[] = [];
 export const fetchWords = async () => {
   const newWords = await getWords();
   wordQueue.push(...newWords);
-  console.log("Enqueue", wordQueue);
 };
 
 export const fetchWordsIfNeeded = async () => {
@@ -17,12 +16,9 @@ export const fetchWordsIfNeeded = async () => {
 
 export const dequeueWord = () => {
   wordQueue.shift();
-  if (wordQueue.length < MIN_WORDS_STORED) fetchWords();
-  console.log("Dequeue", wordQueue);
 };
 
 export const checkGuess = (guess: string): Result[] => {
-  console.log("Check", wordQueue);
   if (wordQueue.length <= 0) return [];
   const letterCount: { [key: string]: number } = wordQueue[0]
     .split("")
