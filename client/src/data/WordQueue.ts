@@ -2,17 +2,20 @@ import { getWords } from "../api/api";
 
 type Result = "green" | "yellow" | "gray";
 
-const MIN_WORDS_STORED = 2;
+export const MIN_WORDS_STORED = 2;
 let wordQueue: string[] = [];
 
-const fetchWords = async () => {
+export const fetchWords = async () => {
   const newWords = await getWords();
   wordQueue.push(...newWords);
   console.log("Enqueue", wordQueue);
 };
 
-const dequeueWord = () => {
-  console.log("Dequeue", wordQueue);
+export const fetchWordsIfNeeded = async () => {
+  if (wordQueue.length < MIN_WORDS_STORED) fetchWords();
+};
+
+export const dequeueWord = () => {
   wordQueue.shift();
   if (wordQueue.length < MIN_WORDS_STORED) fetchWords();
   console.log("Dequeue", wordQueue);
@@ -40,8 +43,6 @@ export const checkGuess = (guess: string): Result[] => {
       result[i] = "yellow";
     }
   }
-  // console.log(result);
-  if (guess === wordQueue[0]) dequeueWord();
   return result;
 };
 

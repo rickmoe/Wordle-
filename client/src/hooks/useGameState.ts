@@ -1,12 +1,17 @@
 import { useGuesses } from "../hooks/useGuesses";
-import { checkGuess } from "../data/WordQueue";
+import { checkGuess, dequeueWord, fetchWordsIfNeeded } from "../data/WordQueue";
 
 type Result = "green" | "yellow" | "gray";
 type TileData = { letter: string; result?: Result };
 
 export const useGameState = (wordLength: number, maxGuesses: number) => {
-  // console.log("useGameState");
-  const { guesses, handleInput } = useGuesses(wordLength, checkGuess);
+  const { guesses, handleInput, status } = useGuesses(
+    wordLength,
+    maxGuesses,
+    checkGuess,
+    dequeueWord,
+    fetchWordsIfNeeded
+  );
 
   const makeTileData = () => {
     let tileData: TileData[][] = guesses.past.map(({ word, results }) => {
@@ -16,20 +21,23 @@ export const useGameState = (wordLength: number, maxGuesses: number) => {
       }
       return tileRowData;
     });
-    tileData.push(
-      guesses.current
-        .padEnd(wordLength, " ")
-        .split("")
-        .map((letter) => ({
-          letter: letter,
-        }))
-    );
-    return tileData.concat(
-      Array(maxGuesses - guesses.past.length - 1).fill(
+    if (status === "in progress") {
+      tileData.push(
+        guesses.current
+          .padEnd(wordLength, " ")
+          .split("")
+          .map((letter) => ({
+            letter: letter,
+          }))
+      );
+    }
+    tileData = tileData.concat(
+      Array(maxGuesses - tileData.length).fill(
         Array(wordLength).fill({ letter: " " })
       )
     );
+    return tileData;
   };
 
-  return { tileData: makeTileData(), handleInput };
+  return { tileData: makeTileData(), handleInput, status };
 };
