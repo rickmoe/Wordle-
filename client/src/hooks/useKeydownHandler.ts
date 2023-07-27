@@ -9,6 +9,7 @@ export const useKeydownHandler = (handleInput: (letter: string) => void) => {
     };
 
     document.addEventListener("keydown", handleKeyDown);
+
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [handleInput]);
 };

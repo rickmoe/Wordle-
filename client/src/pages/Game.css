@@ -1,0 +1,4 @@
+.game {
+  display: grid;
+  grid-template-rows: 1fr var(--keyboard-height);
+}

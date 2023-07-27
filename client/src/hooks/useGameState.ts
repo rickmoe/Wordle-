@@ -1,12 +1,11 @@
 import { useGuesses } from "../hooks/useGuesses";
-import { useWordManager } from "./useWordManager";
+import { checkGuess } from "../data/WordQueue";
 
 type Result = "green" | "yellow" | "gray";
 type TileData = { letter: string; result?: Result };
 
 export const useGameState = (wordLength: number, maxGuesses: number) => {
-  console.log("useGameState");
-  const { checkGuess } = useWordManager(wordLength);
+  // console.log("useGameState");
   const { guesses, handleInput } = useGuesses(wordLength, checkGuess);
 
   const makeTileData = () => {

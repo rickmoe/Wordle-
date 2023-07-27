@@ -37,6 +37,7 @@ export const useGuesses = (wordLength: number, checkGuess: CheckFunction) => {
   }, [wordLength]);
 
   const submitGuess = useCallback(() => {
+    console.log("Submit");
     setGuesses((lastGuesses) => {
       if (
         lastGuesses.current.length < wordLength ||
@@ -47,6 +48,7 @@ export const useGuesses = (wordLength: number, checkGuess: CheckFunction) => {
 
       const currentResults = checkGuess(lastGuesses.current);
       const newEntry = { word: lastGuesses.current, results: currentResults };
+      console.log(lastGuesses.current, currentResults);
 
       return {
         current: "",

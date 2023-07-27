@@ -1,18 +1,19 @@
+import { useGameState } from "../hooks/useGameState";
 import GameDisplay from "../components/GameDisplay";
 import Keyboard from "../components/Keyboard";
-import { useGameState } from "../hooks/useGameState";
+import "./Game.css";
+
+const wordLength = 5;
+const maxGuesses = 6;
 
 const Game = () => {
-  console.log("Game");
-  const wordLength = 5;
-  const maxGuesses = 6;
   const { tileData, handleInput } = useGameState(wordLength, maxGuesses);
 
   return (
-    <>
+    <section className="game">
       <GameDisplay tileData={tileData} />
       <Keyboard handleInput={handleInput} />
-    </>
+    </section>
   );
 };
 

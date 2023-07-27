@@ -1,0 +1,19 @@
+.home {
+  padding-top: 10vh;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+}
+
+a.button {
+  font-size: var(--font-size-button);
+  width: calc(var(--font-size-button) * 5);
+  border-radius: var(--font-size-button);
+
+  text-decoration: none;
+  background-color: var(--color-neutral-3);
+  color: inherit;
+}
