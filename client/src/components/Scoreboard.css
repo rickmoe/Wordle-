@@ -11,12 +11,12 @@
 }
 
 .scoreboard button {
-  width: calc(var(--font-size-button) * 3);
+  width: calc(var(--font-size-button) * 3.5);
   border-radius: calc(var(--font-size-button));
   border: 0;
   margin-inline: auto;
 
-  color: inherit;
+  color: var(--color-neutral-1);
   font-size: var(--font-size-button);
   font-family: inherit;
 }
@@ -24,6 +24,6 @@
 button.next {
   background-color: var(--color-green);
 }
-button.back {
+button.reset {
   background-color: var(--color-yellow);
 }

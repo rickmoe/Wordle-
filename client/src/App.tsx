@@ -15,7 +15,8 @@ const App = () => {
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route index element={<Home />} />
-        <Route path="/game" element={<Game />} />
+        <Route path="/endless" element={<Game mode="endless" />} />
+        <Route path="/daily" element={<Game mode="daily" />} />
       </Route>
     )
   );

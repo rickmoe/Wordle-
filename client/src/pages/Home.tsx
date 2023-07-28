@@ -5,10 +5,10 @@ const Home = () => {
   return (
     <section className="home">
       <h1>Wordle+</h1>
-      <Link to="/game" className="button">
+      <Link to="/daily" className="button">
         Daily
       </Link>
-      <Link to="/game" className="button">
+      <Link to="/endless" className="button">
         Endless
       </Link>
     </section>

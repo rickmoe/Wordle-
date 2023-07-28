@@ -11,8 +11,8 @@ const Scoreboard = ({ gameState, handleInput, score }: ScoreboardProps) => {
   return (
     <section className="scoreboard">
       {gameState === "lose" && (
-        <button className="back" onClick={() => handleInput(">")}>
-          Back
+        <button className="reset" onClick={() => handleInput(">")}>
+          Reset
         </button>
       )}
       <p>Score: {score}</p>
