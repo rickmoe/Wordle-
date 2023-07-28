@@ -1,35 +1,14 @@
+import { Guesses, Result } from "../types";
 import { useState } from "react";
-
-// Results follow the following convention: "green" is in
-// the final word and in the correct spot, "yellow" is in
-// the final word but in the wrong spot, and "gray" is not
-// in the final word
-type Result = "green" | "yellow" | "gray";
-type CheckFunction = (word: string) => Result[];
-type CheckedGuess = { word: string; results: Result[] };
-type Guesses = { current: string; past: CheckedGuess[] };
-type GameStatus = "win" | "lose" | "in progress";
-
-const getStatus = (guesses: CheckedGuess[], maxGuesses: number): GameStatus => {
-  if (
-    guesses.length > 0 &&
-    guesses.slice(-1)[0].results.every((result) => result === "green")
-  )
-    return "win";
-  if (guesses.length === maxGuesses) return "lose";
-  return "in progress";
-};
 
 export const useGuesses = (
   wordLength: number,
-  maxGuesses: number,
-  checkGuess: CheckFunction
+  checkGuess: (word: string) => Result[]
 ) => {
   const [guesses, setGuesses] = useState<Guesses>({
     current: "",
     past: [],
   });
-  const status = getStatus(guesses.past, maxGuesses);
 
   const pushGuess = (letter: string) => {
     setGuesses((lastGuesses) => {
@@ -67,7 +46,7 @@ export const useGuesses = (
     });
   };
 
-  const routeGuessInput = (letter: string) => {
+  const handleGuessInput = (letter: string) => {
     if (/^[a-z]$/i.test(letter)) pushGuess(letter.toLowerCase());
     else if (letter === "<") popGuess();
     else if (letter === ">") submitGuess();
@@ -75,5 +54,5 @@ export const useGuesses = (
 
   const resetGuesses = () => setGuesses({ current: "", past: [] });
 
-  return { guesses, status, routeGuessInput, resetGuesses };
+  return { guesses, handleGuessInput, resetGuesses };
 };

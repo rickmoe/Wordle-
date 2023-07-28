@@ -1,0 +1,29 @@
+.scoreboard {
+  /* background-color: red; */
+  font-size: var(--font-size-scoreboard);
+
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
+}
+
+.scoreboard p {
+  grid-column: 2;
+}
+
+.scoreboard button {
+  width: calc(var(--font-size-button) * 3);
+  border-radius: calc(var(--font-size-button));
+  border: 0;
+  margin-inline: auto;
+
+  color: inherit;
+  font-size: var(--font-size-button);
+  font-family: inherit;
+}
+
+button.next {
+  background-color: var(--color-green);
+}
+button.back {
+  background-color: var(--color-yellow);
+}

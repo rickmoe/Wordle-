@@ -1,7 +1,7 @@
+import { TileData } from "../types";
 import GameTile from "./GameTile";
 import "./GameDisplay.css";
 
-type TileData = { letter: string; result?: "green" | "yellow" | "gray" };
 interface GameDisplayProps {
   tileData: TileData[][];
 }

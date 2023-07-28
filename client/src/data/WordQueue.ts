@@ -1,6 +1,5 @@
+import { Result } from "../types";
 import { getWords } from "../api/api";
-
-type Result = "green" | "yellow" | "gray";
 
 export const MIN_WORDS_STORED = 2;
 let wordQueue: string[] = [];

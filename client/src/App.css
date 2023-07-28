@@ -13,6 +13,7 @@
 
   /* Font Sizes */
   --font-size-title: 2.75rem;
+  --font-size-scoreboard: 1.5rem;
   --font-size-button: 1.25rem;
   --font-size-nav-title: 2.5rem;
   --font-size-game: 1.7rem;
@@ -27,6 +28,7 @@
 
   --nav-height: clamp(3.5rem, 8vw, 5rem);
   --keyboard-height: 26vh;
+  --scoreboard-height: 5vh;
   --line-height: 1.4;
   
   font-family: "Noto Sans", sans-serif;
