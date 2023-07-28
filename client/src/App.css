@@ -26,9 +26,9 @@
   --font-size-form: clamp(1rem, calc(.67vw + .7rem), 1.5rem);
   --font-size-table: clamp(1rem, calc(1.3vw + .4rem), 2rem);
 
-  --nav-height: clamp(3.5rem, 8vw, 5rem);
+  --nav-height: 4.25rem;
   --keyboard-height: 26vh;
-  --scoreboard-height: 5vh;
+  --scoreboard-height: 6vh;
   --line-height: 1.4;
   
   font-family: "Noto Sans", sans-serif;

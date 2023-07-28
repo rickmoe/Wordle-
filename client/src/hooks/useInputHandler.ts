@@ -1,19 +1,24 @@
 import { useCallback } from "react";
-
-type GameStatus = "win" | "lose" | "in progress";
+import { GameState } from "../types";
 
 export const useInputHandler = (
-  status: GameStatus,
+  status: GameState,
   handleGuessInput: (letter: string) => void,
-  reset: VoidFunction
+  resetGameState: VoidFunction,
+  setScore: React.Dispatch<React.SetStateAction<number>>
 ) => {
   const handleInput = useCallback(
     (letter: string): void => {
       if (status === "in progress") handleGuessInput(letter.toLowerCase());
-      else if (status === "win" && letter === ">") reset();
-      else if (status === "lose" && letter === ">") reset();
+      else if (status === "win" && letter === ">") {
+        resetGameState();
+        setScore((prev) => prev + 1);
+      } else if (status === "lose" && letter === ">") {
+        resetGameState();
+        setScore(0);
+      }
     },
-    [status, handleGuessInput, reset]
+    [status, handleGuessInput, resetGameState]
   );
 
   return { handleInput };

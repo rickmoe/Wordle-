@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { CheckedGuess, GameState, Guesses, TileData } from "../types";
-import { useGuesses } from "../hooks/useGuesses";
+import { useGuesses } from "./useGuesses";
 import { useInputHandler } from "./useInputHandler";
 import { checkGuess, dequeueWord, fetchWordsIfNeeded } from "../data/WordQueue";
 
@@ -48,23 +49,31 @@ const makeTileData = (
 };
 
 export const useGameState = (wordLength: number, maxGuesses: number) => {
+  const [score, setScore] = useState(0);
+
   const { guesses, resetGuesses, handleGuessInput } = useGuesses(
     wordLength,
     checkGuess
   );
-  const gameState = getGameState(guesses.past, maxGuesses);
 
-  const reset = () => {
+  const gameState = getGameState(guesses.past, maxGuesses);
+  const resetGameState = () => {
     dequeueWord();
     fetchWordsIfNeeded();
     resetGuesses();
   };
 
-  const { handleInput } = useInputHandler(gameState, handleGuessInput, reset);
+  const { handleInput } = useInputHandler(
+    gameState,
+    handleGuessInput,
+    resetGameState,
+    setScore
+  );
 
   return {
     tileData: makeTileData(guesses, gameState, wordLength, maxGuesses),
     handleInput,
     gameState,
+    score,
   };
 };
