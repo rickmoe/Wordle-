@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import { GameMode } from "../types";
 import { useGameState } from "../hooks/useGameState";
 import GameDisplay from "../components/GameDisplay";
@@ -5,18 +6,18 @@ import Keyboard from "../components/Keyboard";
 import Scoreboard from "../components/Scoreboard";
 import "./Game.css";
 
-const wordLength = 5;
-const maxGuesses = 6;
-
 interface GameProps {
   mode: GameMode;
 }
 
 const Game = ({ mode }: GameProps) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const wordLength = parseInt(searchParams.get("word-length") ?? "5");
+  console.log(wordLength);
+
   const { tileData, handleInput, gameState, score } = useGameState(
     mode,
-    wordLength,
-    maxGuesses
+    wordLength
   );
 
   return (
