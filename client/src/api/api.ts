@@ -15,6 +15,10 @@ export const getWords = async (wordLength: number): Promise<string[]> => {
 export const getDailyWord = async (): Promise<string> => {
   return "carrot";
 };
+
+export const checkWordValidity = async (word: string): Promise<Boolean> => {
+  return true;
+};
 /*** Post ***/
 // Unused
 /*** Put ***/

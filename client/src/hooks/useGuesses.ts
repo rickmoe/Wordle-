@@ -1,3 +1,4 @@
+import { checkWordValidity } from "../api/api";
 import { Guesses, Result } from "../types";
 import { useState } from "react";
 
@@ -36,13 +37,19 @@ export const useGuesses = (
         return lastGuesses;
       }
 
-      const currentResults = checkGuess(lastGuesses.current);
-      const newEntry = { word: lastGuesses.current, results: currentResults };
+      (async () => {
+        const isValid = await checkWordValidity(lastGuesses.current);
+        if (!isValid) return;
+        const currentResults = checkGuess(lastGuesses.current);
+        const newEntry = { word: lastGuesses.current, results: currentResults };
 
-      return {
-        current: "",
-        past: [...lastGuesses.past, newEntry],
-      };
+        setGuesses({
+          current: "",
+          past: [...lastGuesses.past, newEntry],
+        });
+      })();
+
+      return lastGuesses;
     });
   };
 
