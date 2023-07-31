@@ -25,7 +25,7 @@ const makeTileData = (
   maxGuesses: number
 ) => {
   let tileData: TileData[][] = guesses.past.map(({ word, results }) => {
-    const tileRowData = [];
+    const tileRowData: TileData[] = [];
     for (let i = 0; i < wordLength; i++) {
       tileRowData.push({ letter: word[i], result: results[i] });
     }

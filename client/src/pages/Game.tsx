@@ -20,11 +20,13 @@ const getWordLength = (
 
 interface GameProps {
   mode: GameMode;
+  minWordLength: number;
+  maxWordLength: number;
 }
 
-const Game = ({ mode }: GameProps) => {
+const Game = ({ mode, minWordLength, maxWordLength }: GameProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const wordLength = getWordLength(searchParams, 4, 6);
+  const wordLength = getWordLength(searchParams, minWordLength, maxWordLength);
 
   const { tileData, handleInput, gameState, score } = useGameState(
     mode,
