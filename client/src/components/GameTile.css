@@ -1,5 +1,5 @@
 .game-tile {
-  aspect-ratio: 1 / 1;
+  max-height: calc(var(--font-size-game) * 2.3);
   max-width: calc(var(--font-size-game) * 2.3);
   border: .5px solid var(--color-neutral-2);
   flex: 1;

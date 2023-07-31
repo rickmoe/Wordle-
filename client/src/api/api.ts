@@ -11,6 +11,10 @@ export const getWords = async (wordLength: number): Promise<string[]> => {
   if (wordLength === 4) return ["word", "type", "post"];
   return [];
 };
+
+export const getDailyWord = async (): Promise<string> => {
+  return "carrot";
+};
 /*** Post ***/
 // Unused
 /*** Put ***/

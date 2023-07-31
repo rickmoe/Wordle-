@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SetURLSearchParams } from "react-router-dom";
 import { CheckedGuess, GameMode, GameState, Guesses, TileData } from "../types";
 import { useGuesses } from "./useGuesses";
 import { useInputHandler } from "./useInputHandler";
@@ -52,8 +53,16 @@ const getMaxGuesses = (wordLength: number) => {
   return 11 - wordLength;
 };
 
-export const useGameState = (gameMode: GameMode, wordLength: number) => {
-  const { getNextWord, checkGuess } = useWordQueue(wordLength);
+export const useGameState = (
+  gameMode: GameMode,
+  wordLength: number,
+  setSearchParams: SetURLSearchParams
+) => {
+  const { getNextWord, checkGuess } = useWordQueue(
+    gameMode,
+    wordLength,
+    setSearchParams
+  );
   const [score, setScore] = useState(0);
   const maxGuesses = getMaxGuesses(wordLength);
 

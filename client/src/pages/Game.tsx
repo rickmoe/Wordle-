@@ -28,7 +28,8 @@ const Game = ({ mode }: GameProps) => {
 
   const { tileData, handleInput, gameState, score } = useGameState(
     mode,
-    wordLength
+    wordLength,
+    setSearchParams
   );
 
   return (

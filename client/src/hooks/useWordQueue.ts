@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Result } from "../types";
-import { getWords } from "../api/api";
+import { SetURLSearchParams } from "react-router-dom";
+import { GameMode, Result } from "../types";
+import { getDailyWord, getWords } from "../api/api";
 
 const MIN_WORDS_STORED = 3;
 let wordQueue: string[] = [];
@@ -8,6 +9,11 @@ let wordQueue: string[] = [];
 const fetchWords = async (wordLength: number) => {
   const newWords = await getWords(wordLength);
   wordQueue.push(...newWords);
+};
+
+const fetchDailyWord = async () => {
+  const dailyWord = await getDailyWord();
+  wordQueue.push(dailyWord);
 };
 
 const clearQueue = () => {
@@ -38,7 +44,11 @@ const checkGuess = (guess: string, targetWord: string): Result[] => {
   return result;
 };
 
-export const useWordQueue = (wordLength: number) => {
+export const useWordQueue = (
+  gameMode: GameMode,
+  wordLength: number,
+  setSearchParams: SetURLSearchParams
+) => {
   const [targetWord, setTargetWord] = useState("");
 
   const getNextWord = () => {
@@ -47,7 +57,16 @@ export const useWordQueue = (wordLength: number) => {
   };
 
   useEffect(() => {
-    fetchWords(wordLength).then(getNextWord);
+    if (gameMode === "endless") fetchWords(wordLength).then(getNextWord);
+    if (gameMode === "daily")
+      fetchDailyWord().then(() => {
+        setSearchParams((params) => {
+          const newParams = new URLSearchParams(params);
+          newParams.set("word-length", wordQueue[0].length.toString());
+          return newParams;
+        });
+        getNextWord();
+      });
     return clearQueue;
   }, [wordLength]);
 

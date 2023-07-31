@@ -1,6 +1,6 @@
 .game-display {
-  width: 90%;
-  height: 95%;
+  width: 75%;
+  height: 90%;
   margin: auto;
 
   font-size: var(--font-size-game);
