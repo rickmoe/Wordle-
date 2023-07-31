@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;800&display=swap");
 
 :root {
   /* Primary Neutrals, Descending Theme Contrast */
@@ -7,12 +7,15 @@
   --color-neutral-3: #818384;
   /* Contrast Neutrals, Ascending Theme Contrast */
   --color-contrast-1: #fff;
+  --color-contrast-2: #bbb;
   /* Primary Colors */
+  --color-blue: hsl(225, 70%, 55%);
+  --color-blue-muted: hsl(225, 70%, 35%);
   --color-green: hsl(120, 60%, 35%);
   --color-yellow: hsl(53, 73%, 63%);
 
   /* Font Sizes */
-  --font-size-title: 2.75rem;
+  --font-size-title: 3.75rem;
   --font-size-scoreboard: 1.5rem;
   --font-size-button: 1.25rem;
   --font-size-nav-title: 2.5rem;
@@ -20,17 +23,17 @@
   --font-size-key: 1.25rem;
 
   /* Unused Font Sizes  */
-  --font-size-subtitle: clamp(1.5rem, calc(2vw + .6rem), 3rem);
-  --font-size-nav: clamp(1.3rem, calc(.93vw + .88rem), 2rem);
-  --font-size-form-title: clamp(1.25rem, calc(1vw + .8rem), 2rem);
-  --font-size-form: clamp(1rem, calc(.67vw + .7rem), 1.5rem);
-  --font-size-table: clamp(1rem, calc(1.3vw + .4rem), 2rem);
+  --font-size-subtitle: clamp(1.5rem, calc(2vw + 0.6rem), 3rem);
+  --font-size-nav: clamp(1.3rem, calc(0.93vw + 0.88rem), 2rem);
+  --font-size-form-title: clamp(1.25rem, calc(1vw + 0.8rem), 2rem);
+  --font-size-form: clamp(1rem, calc(0.67vw + 0.7rem), 1.5rem);
+  --font-size-table: clamp(1rem, calc(1.3vw + 0.4rem), 2rem);
 
   --nav-height: 4.25rem;
   --keyboard-height: 26vh;
   --scoreboard-height: 6vh;
   --line-height: 1.4;
-  
+
   font-family: "Noto Sans", sans-serif;
   line-height: var(--line-height);
 }
@@ -54,4 +57,8 @@ main {
 }
 main > section {
   min-height: calc(100vh - var(--nav-height));
+}
+
+b {
+  color: var(--color-blue);
 }
