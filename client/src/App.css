@@ -38,6 +38,21 @@
   line-height: var(--line-height);
 }
 
+.light {
+  /* Primary Neutrals, Descending Theme Contrast */
+  --color-neutral-1: #f6f6f6;
+  --color-neutral-2: #bbb;
+  --color-neutral-3: #999;
+  /* Contrast Neutrals, Ascending Theme Contrast */
+  --color-contrast-1: #121213;
+  --color-contrast-2: #363538;
+  /* Primary Colors */
+  --color-blue: hsl(225, 80%, 70%);
+  --color-blue-muted: hsl(225, 80%, 70%);
+  --color-green: hsl(120, 60%, 35%);
+  --color-yellow: hsl(53, 73%, 63%);
+}
+
 *,
 ::before,
 ::after {
@@ -59,11 +74,17 @@ main > section {
   min-height: calc(100vh - var(--nav-height));
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 b {
   color: var(--color-blue);
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    transition: background-color 0.2s, color 0.2s;
+  }
 }

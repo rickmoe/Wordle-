@@ -1,3 +1,6 @@
+/* App Display Types */
+export type DisplayMode = "light" | "dark";
+
 /* Game state types */
 export type GameMode = "endless" | "daily";
 export type GameState = "win" | "lose" | "in progress";

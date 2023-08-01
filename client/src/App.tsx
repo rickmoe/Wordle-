@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Outlet,
   Route,
@@ -5,6 +6,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import { DisplayMode } from "./types";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
@@ -54,13 +56,20 @@ const App = () => {
 };
 
 const Root = () => {
+  const [displayMode, setDisplayMode] = useState<DisplayMode>("dark");
+  const toggleDisplayMode = () =>
+    setDisplayMode((prev) => {
+      if (prev === "dark") return "light";
+      return "dark";
+    });
+
   return (
-    <>
-      <Navbar />
+    <section className={`app ${displayMode}`}>
+      <Navbar displayMode={displayMode} toggleDisplayMode={toggleDisplayMode} />
       <main>
         <Outlet />
       </main>
-    </>
+    </section>
   );
 };
 
