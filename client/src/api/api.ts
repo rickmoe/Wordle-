@@ -1,23 +1,23 @@
-// import axios from "axios";
+import axios from "axios";
 
 // "baseURL" should always reference the backend
-// const api = axios.create({ baseURL: "" });
+const api = axios.create({ baseURL: "http://localhost:5000" });
 
 /******** API Methods ********/
 /*** Get ***/
 export const getWords = async (wordLength: number): Promise<string[]> => {
-  if (wordLength === 6) return ["shroud", "cheese", "export"];
-  if (wordLength === 5) return ["cheek", "rogue", "water"];
-  if (wordLength === 4) return ["word", "type", "post"];
-  return [];
+  const response = await api.get(`/words/${wordLength}`);
+  return response.data;
 };
 
 export const getDailyWord = async (): Promise<string> => {
-  return "carrot";
+  const response = await api.get("/daily");
+  return response.data;
 };
 
 export const checkWordValidity = async (word: string): Promise<Boolean> => {
-  return true;
+  const response = await api.get(`/is-valid/${word}`);
+  return response.data === "valid";
 };
 /*** Post ***/
 // Unused

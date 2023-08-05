@@ -53,7 +53,8 @@ export const useWordQueue = (
 
   const getNextWord = () => {
     setTargetWord(wordQueue.shift() ?? "");
-    if (wordQueue.length < MIN_WORDS_STORED) fetchWords(wordLength);
+    if (gameMode === "endless" && wordQueue.length < MIN_WORDS_STORED)
+      fetchWords(wordLength);
   };
 
   useEffect(() => {
