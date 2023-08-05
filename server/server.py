@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from word_manager import get_random_words
 
 app = Flask(__name__)
 
@@ -10,19 +11,9 @@ def get_daily_word():
 
 @app.route("/words/<word_length>")
 def get_words(word_length):
-    words = []
-    word_length = int(word_length)
     num_words = request.args.get("num-words")
     num_words = int(num_words) if num_words else 10
-    if word_length == 6:
-        words = ["shroud", "cheese", "export"]
-    elif word_length == 5:
-        words = ["cheek", "rogue", "water"]
-    elif word_length == 4:
-        words = ["word", "type", "post"]
-    else:
-        return [], 400
-    print(words)
+    words = get_random_words(int(word_length), num_words)
     return words, 200
 
 @app.route("/is-valid/<word>")

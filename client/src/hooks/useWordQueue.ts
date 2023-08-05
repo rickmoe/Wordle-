@@ -4,10 +4,11 @@ import { GameMode, Result } from "../types";
 import { getDailyWord, getWords } from "../api/api";
 
 const MIN_WORDS_STORED = 3;
+const FETCH_BATCH_SIZE = 10;
 let wordQueue: string[] = [];
 
 const fetchWords = async (wordLength: number) => {
-  const newWords = await getWords(wordLength);
+  const newWords = await getWords(wordLength, FETCH_BATCH_SIZE);
   wordQueue.push(...newWords);
 };
 

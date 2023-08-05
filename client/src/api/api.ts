@@ -5,8 +5,11 @@ const api = axios.create({ baseURL: "http://localhost:5000" });
 
 /******** API Methods ********/
 /*** Get ***/
-export const getWords = async (wordLength: number): Promise<string[]> => {
-  const response = await api.get(`/words/${wordLength}`);
+export const getWords = async (
+  wordLength: number,
+  numWords: number
+): Promise<string[]> => {
+  const response = await api.get(`/words/${wordLength}?num-words=${numWords}`);
   return response.data;
 };
 
