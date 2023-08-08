@@ -1,5 +1,5 @@
 from flask import Flask, request
-from word_manager import get_random_words, get_daily_word
+from word_manager import get_random_words, get_daily_word, check_word
 
 app = Flask(__name__)
 
@@ -18,7 +18,7 @@ def get_words(word_length):
 
 @app.route("/is-valid/<word>")
 def get_is_valid(word):
-    return "valid", 200
+    return "valid" if check_word(word) else "invalid", 200
 ### Post ###
 # Unused
 ### Put ###

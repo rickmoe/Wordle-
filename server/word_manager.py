@@ -1,4 +1,4 @@
-from words import words
+from words import words as word_list
 import random
 from datetime import date
 
@@ -13,8 +13,11 @@ def get_daily_word():
     # Hashing the current date gives a consistent seed daily
     seed = date.today().__hash__()
     print(seed)
-    return get_random_element(words, seed)
+    return get_random_element(word_list, seed)
 
 def get_random_words(length, count):
-    filtered_words = filter(words, length)
+    filtered_words = filter(word_list, length)
     return  [get_random_element(filtered_words) for _ in range(count)]
+
+def check_word(word):
+    return word in word_list
