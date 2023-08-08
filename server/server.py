@@ -1,13 +1,13 @@
-from flask import Flask, request, jsonify
-from word_manager import get_random_words
+from flask import Flask, request
+from word_manager import get_random_words, get_daily_word
 
 app = Flask(__name__)
 
 ######## API Routes ########
 ### Get ###
 @app.route("/daily")
-def get_daily_word():
-    return "carrot", 200
+def get_daily():
+    return get_daily_word(), 200
 
 @app.route("/words/<word_length>")
 def get_words(word_length):

@@ -1,4 +1,5 @@
 words = [
+    "carrot",
     "cheek",
     "cheese",
     "elect",
