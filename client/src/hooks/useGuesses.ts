@@ -1,59 +1,74 @@
 import { checkWordValidity } from "../api/api";
-import { Guesses, Result } from "../types";
+import { Guess, Result } from "../types";
 import { useState } from "react";
+
+const getCurrentGuess = (array: Guess[]): Guess => {
+  return array.slice(-1)[0];
+};
 
 export const useGuesses = (
   wordLength: number,
   checkGuess: (word: string) => Result[]
 ) => {
-  const [guesses, setGuesses] = useState<Guesses>({
-    current: "",
-    past: [],
-  });
+  const [guesses, setGuesses] = useState<Guess[]>([{ word: "" }]);
 
   const pushGuess = (letter: string) => {
-    setGuesses(({ current, past }) => {
-      if (current.length >= wordLength) return { current, past };
-      return {
-        current: current + letter,
-        past,
-      };
+    setGuesses((prev) => {
+      const current = getCurrentGuess(prev).word;
+      if (current.length >= wordLength) return prev;
+
+      return prev.map(({ word, results }, index) => {
+        if (index !== prev.length - 1) return { word, results };
+        return { word: word + letter, results };
+      });
     });
   };
 
   const popGuess = () => {
-    setGuesses(({ current, past }) => ({
-      current: current.slice(0, -1),
-      past,
-    }));
+    setGuesses((prev) =>
+      prev.map(({ word, results }, index) => {
+        if (index !== prev.length - 1) return { word, results };
+        return { word: word.slice(0, -1), results };
+      })
+    );
   };
 
   const submitGuess = () => {
-    setGuesses(({ current, past }) => {
+    setGuesses((prev) => {
+      const current = getCurrentGuess(prev).word;
       if (
         current.length < wordLength ||
-        past.some(({ word }) => word == current)
+        prev.slice(0, -1).find(({ word }) => word === current)
       ) {
-        return { current, past };
+        return prev;
       }
 
       (async () => {
         const isValid = await checkWordValidity(current);
         if (!isValid) {
-          setGuesses({ current: "", past });
+          setGuesses(
+            prev.map((guess, index) => {
+              if (index !== prev.length - 1) return guess;
+              return { word: "" };
+            })
+          );
           return;
         }
 
         const currentResults = checkGuess(current);
         const newEntry = { word: current, results: currentResults };
 
-        setGuesses({
-          current: "",
-          past: [...past, newEntry],
-        });
+        setGuesses(
+          prev
+            .map((guess, index) => {
+              if (index !== prev.length - 1) return guess;
+              return newEntry;
+            })
+            .concat({ word: "" })
+        );
       })();
 
-      return { current, past };
+      return prev;
     });
   };
 
@@ -63,7 +78,7 @@ export const useGuesses = (
     else if (letter === ">") submitGuess();
   };
 
-  const resetGuesses = () => setGuesses({ current: "", past: [] });
+  const resetGuesses = () => setGuesses([{ word: "" }]);
 
   return { guesses, handleGuessInput, resetGuesses };
 };
