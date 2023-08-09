@@ -5,9 +5,6 @@ export type DisplayMode = "light" | "dark";
 export type GameMode = "endless" | "daily";
 export type GameState = "win" | "lose" | "in progress";
 
-/* Game display types */
-export type TileData = { letter: string; result?: "green" | "yellow" | "gray" };
-
 /* Word checking/matching types */
 // Results follow the following convention: "green" is in
 // the final word and in the correct spot, "yellow" is in
@@ -16,3 +13,6 @@ export type TileData = { letter: string; result?: "green" | "yellow" | "gray" };
 export type Result = "green" | "yellow" | "gray";
 type CheckedGuess = { word: string; results: Result[] };
 type Guesses = { current: string; past: CheckedGuess[] };
+
+/* Game display types */
+export type TileData = { letter: string; result?: Result };

@@ -12,44 +12,48 @@ export const useGuesses = (
   });
 
   const pushGuess = (letter: string) => {
-    setGuesses((lastGuesses) => {
-      if (lastGuesses.current.length >= wordLength) return lastGuesses;
+    setGuesses(({ current, past }) => {
+      if (current.length >= wordLength) return { current, past };
       return {
-        current: lastGuesses.current + letter,
-        past: lastGuesses.past,
+        current: current + letter,
+        past,
       };
     });
   };
 
   const popGuess = () => {
-    setGuesses((lastGuesses) => ({
-      current: lastGuesses.current.slice(0, -1),
-      past: lastGuesses.past,
+    setGuesses(({ current, past }) => ({
+      current: current.slice(0, -1),
+      past,
     }));
   };
 
   const submitGuess = () => {
-    setGuesses((lastGuesses) => {
+    setGuesses(({ current, past }) => {
       if (
-        lastGuesses.current.length < wordLength ||
-        lastGuesses.past.some((guess) => guess.word == lastGuesses.current)
+        current.length < wordLength ||
+        past.some(({ word }) => word == current)
       ) {
-        return lastGuesses;
+        return { current, past };
       }
 
       (async () => {
-        const isValid = await checkWordValidity(lastGuesses.current);
-        if (!isValid) return;
-        const currentResults = checkGuess(lastGuesses.current);
-        const newEntry = { word: lastGuesses.current, results: currentResults };
+        const isValid = await checkWordValidity(current);
+        if (!isValid) {
+          setGuesses({ current: "", past });
+          return;
+        }
+
+        const currentResults = checkGuess(current);
+        const newEntry = { word: current, results: currentResults };
 
         setGuesses({
           current: "",
-          past: [...lastGuesses.past, newEntry],
+          past: [...past, newEntry],
         });
       })();
 
-      return lastGuesses;
+      return { current, past };
     });
   };
 

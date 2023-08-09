@@ -40,27 +40,27 @@
   .game-tile.gray:nth-child(2),
   .game-tile.green:nth-child(2),
   .game-tile.yellow:nth-child(2) {
-    animation-delay: 0.15s;
+    animation-delay: 0.1s;
   }
   .game-tile.gray:nth-child(3),
   .game-tile.green:nth-child(3),
   .game-tile.yellow:nth-child(3) {
-    animation-delay: 0.3s;
+    animation-delay: 0.2s;
   }
   .game-tile.gray:nth-child(4),
   .game-tile.green:nth-child(4),
   .game-tile.yellow:nth-child(4) {
-    animation-delay: 0.45s;
+    animation-delay: 0.3s;
   }
   .game-tile.gray:nth-child(5),
   .game-tile.green:nth-child(5),
   .game-tile.yellow:nth-child(5) {
-    animation-delay: 0.6s;
+    animation-delay: 0.4s;
   }
   .game-tile.gray:nth-child(6),
   .game-tile.green:nth-child(6),
   .game-tile.yellow:nth-child(6) {
-    animation-delay: 0.75s;
+    animation-delay: 0.5s;
   }
 
   @keyframes scale-in {
