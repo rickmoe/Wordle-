@@ -4,7 +4,7 @@
   /* Primary Neutrals, Descending Theme Contrast */
   --color-neutral-1: #121213;
   --color-neutral-2: #3a3a3c;
-  --color-neutral-3: #818384;
+  --color-neutral-3: #515354;
   /* Contrast Neutrals, Ascending Theme Contrast */
   --color-contrast-1: #fff;
   --color-contrast-2: #bbb;
@@ -40,9 +40,9 @@
 
 .light {
   /* Primary Neutrals, Descending Theme Contrast */
-  --color-neutral-1: #f6f6f6;
+  --color-neutral-1: #fff;
   --color-neutral-2: #bbb;
-  --color-neutral-3: #999;
+  --color-neutral-3: #ddd;
   /* Contrast Neutrals, Ascending Theme Contrast */
   --color-contrast-1: #121213;
   --color-contrast-2: #363538;
@@ -85,6 +85,6 @@ b {
 
 @media (prefers-reduced-motion: no-preference) {
   * {
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.5s, color 0.5s 0.2s;
   }
 }
