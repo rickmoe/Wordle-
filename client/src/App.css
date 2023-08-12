@@ -30,7 +30,8 @@
   --font-size-table: clamp(1rem, calc(1.3vw + 0.4rem), 2rem);
 
   --nav-height: 4.25rem;
-  --keyboard-height: 26vh;
+  --keyboard-height: min(26vh, 15rem);
+  --keyboard-width: min(95%, 40rem);
   --scoreboard-height: 6vh;
   --line-height: 1.4;
 

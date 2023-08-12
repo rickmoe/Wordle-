@@ -1,11 +1,12 @@
 .keyboard {
-  margin: calc(var(--font-size-key) * .4);
+  width: var(--keyboard-width);
+  margin: 0.6rem auto;
   font-size: var(--font-size-key);
-  
+
   display: grid;
   grid-template-columns: repeat(20, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: calc(var(--font-size-key) * .3);
+  gap: calc(var(--font-size-key) * 0.3);
 }
 
 .span-2 {

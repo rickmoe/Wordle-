@@ -1,7 +1,6 @@
 .game-display {
   width: 75%;
-  height: 90%;
-  margin: auto;
+  margin: 0.5rem auto;
 
   font-size: var(--font-size-game);
   text-transform: uppercase;
@@ -14,6 +13,7 @@
 }
 
 .tile-row {
+  max-height: calc(var(--font-size-game) * 2.3);
   flex: 1;
 
   display: flex;
