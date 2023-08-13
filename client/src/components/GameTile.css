@@ -1,5 +1,6 @@
 .game-tile {
-  max-width: calc(var(--font-size-game) * 2.3);
+  max-width: 2.3em;
+  min-width: 0.85em;
   border: 0.5px solid var(--color-neutral-2);
   flex: 1;
 

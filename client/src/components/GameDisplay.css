@@ -7,13 +7,24 @@
   font-weight: 800;
 
   display: flex;
+  justify-content: center;
+}
+
+.game-display-column {
+  flex: 1;
+
+  display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.35rem;
 }
+.game-display-column.split {
+  max-width: 11rem;
+}
 
 .tile-row {
-  max-height: calc(var(--font-size-game) * 2.3);
+  max-height: 2.3em;
+  min-height: 1.5em;
   flex: 1;
 
   display: flex;
