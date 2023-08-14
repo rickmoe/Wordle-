@@ -1,21 +1,19 @@
 import { useState } from "react";
-import { SetURLSearchParams } from "react-router-dom";
 import { GameMode, GameState, Guess, Result } from "../types/types";
 import { useGuesses } from "./useGuesses";
 import { useInputHandler } from "./useInputHandler";
-import { useWordQueue } from "./useWordQueue";
+import { useWordManager } from "./useWordManager";
 
-const isResultArray = (
-  results: Result[] | "invalid" | undefined
-): results is Result[] => {
-  return results !== undefined && results !== "invalid";
+const isValid = (results: Result[] | "invalid"): results is Result[] => {
+  return results !== "invalid";
 };
 
 const getGameState = (guesses: Guess[], maxGuesses: number): GameState => {
   if (guesses.length > 1) {
     const lastResults = guesses.slice(-2)[0].results;
     if (
-      isResultArray(lastResults) &&
+      lastResults &&
+      isValid(lastResults) &&
       lastResults.every((result) => result === "green")
     )
       return "win";
@@ -28,12 +26,12 @@ export const useGameState = (
   gameMode: GameMode,
   wordLength: number,
   maxGuesses: number,
-  setSearchParams: SetURLSearchParams
+  setWordLength: (length: number) => void
 ) => {
-  const { getNextWord, checkGuess } = useWordQueue(
+  const { getNextWord, checkGuess } = useWordManager(
     gameMode,
     wordLength,
-    setSearchParams
+    setWordLength
   );
   const [score, setScore] = useState(0);
 
@@ -43,7 +41,7 @@ export const useGameState = (
   );
 
   const gameState = getGameState(guesses, maxGuesses);
-  const resetGameState = () => {
+  const resetGame = () => {
     getNextWord();
     resetGuesses();
   };
@@ -52,7 +50,7 @@ export const useGameState = (
     gameMode,
     gameState,
     handleGuessInput,
-    resetGameState,
+    resetGame,
     setScore
   );
 

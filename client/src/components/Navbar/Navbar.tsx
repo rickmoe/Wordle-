@@ -10,12 +10,10 @@ interface NavbarProps {
 const Navbar = ({ displayMode, toggleDisplayMode }: NavbarProps) => {
   return (
     <nav>
-      <h1>
-        <Link to="/">
-          Wordle<b>+</b>
-        </Link>
-      </h1>
-      <button className="light-dark" onClick={toggleDisplayMode}>
+      <Link to="/" className="nav-title">
+        Wordle<b>+</b>
+      </Link>
+      <button className="theme-button" onClick={toggleDisplayMode}>
         {displayMode}
       </button>
     </nav>
