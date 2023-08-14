@@ -31,3 +31,23 @@
   justify-content: center;
   gap: 0.35rem;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .tile-row.invalid {
+    animation: shake 0.5s linear;
+  }
+
+  @keyframes shake {
+    17%,
+    50%,
+    83% {
+      translate: -0.5em;
+      filter: blur(0.08em);
+    }
+    33%,
+    66% {
+      translate: 0.5em;
+      filter: blur(0.08em);
+    }
+  }
+}

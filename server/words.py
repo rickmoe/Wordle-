@@ -4,6 +4,8 @@ words = [
     "cheese",
     "elect",
     "export",
+    "let",
+    "is",
     "post",
     "rogue",
     "shroud",

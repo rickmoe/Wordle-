@@ -18,6 +18,10 @@ const getWordLength = (
   return wordLength;
 };
 
+const getMaxGuesses = (wordLength: number) => {
+  return 11 - wordLength;
+};
+
 interface GameProps {
   mode: GameMode;
   minWordLength: number;
@@ -27,10 +31,12 @@ interface GameProps {
 const Game = ({ mode, minWordLength, maxWordLength }: GameProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const wordLength = getWordLength(searchParams, minWordLength, maxWordLength);
+  const maxGuesses = getMaxGuesses(wordLength);
 
-  const { tileData, handleInput, gameState, score } = useGameState(
+  const { guesses, handleInput, gameState, score } = useGameState(
     mode,
     wordLength,
+    maxGuesses,
     setSearchParams
   );
 
@@ -43,7 +49,11 @@ const Game = ({ mode, minWordLength, maxWordLength }: GameProps) => {
           score={score}
         />
       )}
-      <GameDisplay tileData={tileData} />
+      <GameDisplay
+        guesses={guesses}
+        wordLength={wordLength}
+        maxGuesses={maxGuesses}
+      />
       <Keyboard handleInput={handleInput} />
     </section>
   );

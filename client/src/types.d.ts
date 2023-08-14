@@ -11,7 +11,7 @@ export type GameState = "win" | "lose" | "in progress";
 // the final word but in the wrong spot, and "gray" is not
 // in the final word
 export type Result = "green" | "yellow" | "gray";
-type Guess = { word: string; results?: Result[] };
+type Guess = { word: string; results?: Result[] | "invalid" };
 
 /* Game display types */
 export type TileData = { letter: string; result?: Result };

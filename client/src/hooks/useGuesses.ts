@@ -19,7 +19,7 @@ export const useGuesses = (
 
       return prev.map(({ word, results }, index) => {
         if (index !== prev.length - 1) return { word, results };
-        return { word: word + letter, results };
+        return { word: word + letter };
       });
     });
   };
@@ -28,7 +28,7 @@ export const useGuesses = (
     setGuesses((prev) =>
       prev.map(({ word, results }, index) => {
         if (index !== prev.length - 1) return { word, results };
-        return { word: word.slice(0, -1), results };
+        return { word: word.slice(0, -1) };
       })
     );
   };
@@ -40,7 +40,10 @@ export const useGuesses = (
         current.length < wordLength ||
         prev.slice(0, -1).find(({ word }) => word === current)
       ) {
-        return prev;
+        return prev.map((guess, index) => {
+          if (index !== prev.length - 1) return guess;
+          return { word: guess.word, results: "invalid" };
+        });
       }
 
       (async () => {
@@ -49,7 +52,7 @@ export const useGuesses = (
           setGuesses(
             prev.map((guess, index) => {
               if (index !== prev.length - 1) return guess;
-              return { word: "" };
+              return { word: guess.word, results: "invalid" };
             })
           );
           return;

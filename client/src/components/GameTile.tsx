@@ -1,8 +1,9 @@
+import { Result } from "../types";
 import "./GameTile.css";
 
 interface GameTileProps {
   letter: string;
-  result?: "green" | "yellow" | "gray";
+  result?: Result;
 }
 
 const GameTile = (props: GameTileProps) => {
