@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SetURLSearchParams } from "react-router-dom";
-import { GameMode, Result } from "../types";
+import { GameMode, Result } from "../types/";
 import { getDailyWord, getWords } from "../api/api";
 
 const MIN_WORDS_STORED = 3;

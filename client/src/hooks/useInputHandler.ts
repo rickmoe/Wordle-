@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { GameMode, GameState } from "../types";
+import { GameMode, GameState } from "../types/";
 
 export const useInputHandler = (
   gameMode: GameMode,

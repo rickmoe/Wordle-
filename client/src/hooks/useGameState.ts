@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SetURLSearchParams } from "react-router-dom";
-import { GameMode, GameState, Guess, Result } from "../types";
+import { GameMode, GameState, Guess, Result } from "../types/types";
 import { useGuesses } from "./useGuesses";
 import { useInputHandler } from "./useInputHandler";
 import { useWordQueue } from "./useWordQueue";

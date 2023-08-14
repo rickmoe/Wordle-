@@ -1,4 +1,4 @@
-import { Result } from "../types";
+import { Result } from "../../types/types";
 import "./GameTile.css";
 
 interface GameTileProps {

@@ -1,6 +1,4 @@
-import { Guess, TileData } from "../types";
-import GameTile from "./GameTile";
-import "./GameDisplay.css";
+import { Guess, TileData } from "../types/types";
 
 const makeTileData = (
   guesses: Guess[],
@@ -56,52 +54,14 @@ const splitToColumns = (
   return { columns: [column1, column2], colSize };
 };
 
-interface GameDisplayProps {
-  guesses: Guess[];
-  wordLength: number;
-  maxGuesses: number;
-}
-
-const GameDisplay = ({ guesses, wordLength, maxGuesses }: GameDisplayProps) => {
+export const useTileData = (
+  guesses: Guess[],
+  wordLength: number,
+  maxGuesses: number
+) => {
   const tileData = makeTileData(guesses, wordLength, maxGuesses);
   const { columns, colSize } = splitToColumns(tileData);
   const isSplit = columns.length > 1;
 
-  return (
-    <section className="game-display">
-      {columns.map((columnData, colNum) => (
-        <section
-          key={colNum}
-          className={"game-display-column" + (isSplit ? " split" : "")}
-        >
-          {columnData.map((tileRow, rowNum) => {
-            const guessNum = colNum * colSize + rowNum;
-            return (
-              <div
-                key={guessNum}
-                className={
-                  "tile-row " +
-                  guessNum +
-                  (guesses.length > guessNum &&
-                  guesses[guessNum].results === "invalid"
-                    ? " invalid"
-                    : "")
-                }
-              >
-                {tileRow.map((tile, letterNum) => (
-                  <GameTile
-                    key={letterNum}
-                    letter={tile.letter}
-                    result={tile.result}
-                  />
-                ))}
-              </div>
-            );
-          })}
-        </section>
-      ))}
-    </section>
-  );
+  return { columns, colSize, isSplit };
 };
-
-export default GameDisplay;

@@ -1,5 +1,5 @@
 import { checkWordValidity } from "../api/api";
-import { Guess, Result } from "../types";
+import { Guess, Result } from "../types/types";
 import { useState } from "react";
 
 const getCurrentGuess = (array: Guess[]): Guess => {

@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 
 interface HomeProps {
-  minWordLength: number;
-  maxWordLength: number;
+  wordLengthBounds: { min: number; max: number };
 }
 
-const Home = ({ minWordLength, maxWordLength }: HomeProps) => {
+const Home = ({ wordLengthBounds: { min, max } }: HomeProps) => {
   const [wordLength, setWordLength] = useState(5);
 
   return (
@@ -23,8 +22,8 @@ const Home = ({ minWordLength, maxWordLength }: HomeProps) => {
         type="range"
         value={wordLength}
         onChange={(event) => setWordLength(parseInt(event.target.value))}
-        min={minWordLength}
-        max={maxWordLength}
+        min={min}
+        max={max}
       />
     </section>
   );

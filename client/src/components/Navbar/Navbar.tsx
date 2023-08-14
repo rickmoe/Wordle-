@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { DisplayMode } from "../types";
+import { DisplayMode } from "../../types/types";
 import "./Navbar.css";
 
 interface NavbarProps {

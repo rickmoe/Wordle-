@@ -1,9 +1,9 @@
 import { useSearchParams } from "react-router-dom";
-import { GameMode } from "../types";
-import { useGameState } from "../hooks/useGameState";
-import GameDisplay from "../components/GameDisplay";
-import Keyboard from "../components/Keyboard";
-import Scoreboard from "../components/Scoreboard";
+import { GameMode } from "../../types/types";
+import { useGameState } from "../../hooks/useGameState";
+import GameDisplay from "../../components/GameDisplay/GameDisplay";
+import Keyboard from "../../components/Keyboard/Keyboard";
+import Scoreboard from "../../components/Scoreboard/Scoreboard";
 import "./Game.css";
 
 const getWordLength = (
@@ -24,13 +24,12 @@ const getMaxGuesses = (wordLength: number) => {
 
 interface GameProps {
   mode: GameMode;
-  minWordLength: number;
-  maxWordLength: number;
+  wordLengthBounds: { min: number; max: number };
 }
 
-const Game = ({ mode, minWordLength, maxWordLength }: GameProps) => {
+const Game = ({ mode, wordLengthBounds: { min, max } }: GameProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const wordLength = getWordLength(searchParams, minWordLength, maxWordLength);
+  const wordLength = getWordLength(searchParams, min, max);
   const maxGuesses = getMaxGuesses(wordLength);
 
   const { guesses, handleInput, gameState, score } = useGameState(
