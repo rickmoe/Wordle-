@@ -1,23 +1,26 @@
 import { GameState } from "../../types/types";
 import "./Scoreboard.css";
 
+const pressEnter = () => {
+  document.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
+};
+
 interface ScoreboardProps {
   gameState: GameState;
-  handleInput: (letter: string) => void;
   score: number;
 }
 
-const Scoreboard = ({ gameState, handleInput, score }: ScoreboardProps) => {
+const Scoreboard = ({ gameState, score }: ScoreboardProps) => {
   return (
     <section className="scoreboard">
       {gameState === "lose" && (
-        <button className="reset" onClick={() => handleInput(">")}>
+        <button className="reset" onClick={pressEnter}>
           Reset
         </button>
       )}
       <p>Score: {score}</p>
       {gameState === "win" && (
-        <button className="next" onClick={() => handleInput(">")}>
+        <button className="next" onClick={pressEnter}>
           Next
         </button>
       )}

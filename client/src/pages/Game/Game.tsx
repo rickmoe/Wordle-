@@ -13,7 +13,7 @@ interface GameProps {
 
 const Game = ({ mode, wordLengthBounds: { min, max } }: GameProps) => {
   const { wordLength, maxGuesses, setWordLength } = useWordParams(min, max);
-  const { guesses, handleInput, gameState, score } = useGameState(
+  const { guesses, gameState, score } = useGameState(
     mode,
     wordLength,
     maxGuesses,
@@ -22,19 +22,13 @@ const Game = ({ mode, wordLengthBounds: { min, max } }: GameProps) => {
 
   return (
     <section className={`game ${mode}`}>
-      {mode === "endless" && (
-        <Scoreboard
-          gameState={gameState}
-          handleInput={handleInput}
-          score={score}
-        />
-      )}
+      {mode === "endless" && <Scoreboard gameState={gameState} score={score} />}
       <GameDisplay
         guesses={guesses}
         wordLength={wordLength}
         maxGuesses={maxGuesses}
       />
-      <Keyboard handleInput={handleInput} />
+      <Keyboard />
     </section>
   );
 };

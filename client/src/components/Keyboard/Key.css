@@ -1,3 +1,10 @@
+.span-2 {
+  grid-column: span 2;
+}
+.span-3 {
+  grid-column: span 3;
+}
+
 .key {
   text-transform: uppercase;
   font-weight: 600;
@@ -6,7 +13,7 @@
   background-color: var(--color-neutral-3);
   color: inherit;
   border: none;
-  border-radius: calc(var(--font-size-key) / 3);
+  border-radius: 0.4em;
 }
 
 .key#a {
@@ -14,5 +21,6 @@
 }
 
 .key#enter {
+  border-radius: 0.67em;
   font-size: 0.6em;
 }

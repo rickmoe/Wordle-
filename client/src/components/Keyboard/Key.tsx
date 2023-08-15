@@ -1,23 +1,28 @@
+import { useCallback } from "react";
 import "./Key.css";
 
+const getKeyDisplay = (keyName: string): string => {
+  if (keyName === "Enter") return "enter";
+  if (keyName === "Backspace") return "del";
+  return keyName;
+};
+
 interface KeyProps {
-  letter: string;
-  onClick: (letter: string) => void;
-  className?: string;
+  keyName: string;
 }
 
-const Key = (props: KeyProps) => {
-  let display: string = props.letter;
-  if (props.letter === ">") display = "enter";
-  if (props.letter === "<") display = "del";
+const Key = ({ keyName }: KeyProps) => {
+  const pressKey = useCallback(() => {
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: keyName }));
+  }, [keyName]);
 
   return (
     <button
-      className={props.className}
-      id={display}
-      onClick={() => props.onClick(props.letter)}
+      className={"key " + (/^\w$/.test(keyName) ? "span-2" : "span-3")}
+      id={keyName}
+      onClick={pressKey}
     >
-      {display}
+      {getKeyDisplay(keyName)}
     </button>
   );
 };

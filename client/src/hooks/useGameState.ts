@@ -4,7 +4,7 @@ import { useGuesses } from "./useGuesses";
 import { useInputHandler } from "./useInputHandler";
 import { useWordManager } from "./useWordManager";
 
-const isValid = (results: Result[] | "invalid"): results is Result[] => {
+const isValidResult = (results: Result[] | "invalid"): results is Result[] => {
   return results !== "invalid";
 };
 
@@ -13,7 +13,7 @@ const getGameState = (guesses: Guess[], maxGuesses: number): GameState => {
     const lastResults = guesses.slice(-2)[0].results;
     if (
       lastResults &&
-      isValid(lastResults) &&
+      isValidResult(lastResults) &&
       lastResults.every((result) => result === "green")
     )
       return "win";
@@ -35,10 +35,8 @@ export const useGameState = (
   );
   const [score, setScore] = useState(0);
 
-  const { guesses, resetGuesses, handleGuessInput } = useGuesses(
-    wordLength,
-    checkGuess
-  );
+  const { guesses, resetGuesses, pushGuess, popGuess, submitGuess } =
+    useGuesses(wordLength, checkGuess);
 
   const gameState = getGameState(guesses, maxGuesses);
   const resetGame = () => {
@@ -46,17 +44,18 @@ export const useGameState = (
     resetGuesses();
   };
 
-  const { handleInput } = useInputHandler(
+  useInputHandler(
     gameMode,
     gameState,
-    handleGuessInput,
+    setScore,
     resetGame,
-    setScore
+    pushGuess,
+    popGuess,
+    submitGuess
   );
 
   return {
     guesses,
-    handleInput,
     gameState,
     score,
   };

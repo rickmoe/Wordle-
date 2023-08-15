@@ -75,13 +75,13 @@ export const useGuesses = (
     });
   };
 
-  const handleGuessInput = (letter: string) => {
-    if (/^[a-z]$/i.test(letter)) pushGuess(letter.toLowerCase());
-    else if (letter === "<") popGuess();
-    else if (letter === ">") submitGuess();
-  };
-
   const resetGuesses = () => setGuesses([{ word: "" }]);
 
-  return { guesses, handleGuessInput, resetGuesses };
+  return {
+    guesses,
+    resetGuesses,
+    pushGuess,
+    popGuess,
+    submitGuess,
+  };
 };

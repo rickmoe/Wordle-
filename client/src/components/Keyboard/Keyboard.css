@@ -8,10 +8,3 @@
   grid-template-rows: repeat(3, 1fr);
   gap: calc(var(--font-size-key) * 0.3);
 }
-
-.span-2 {
-  grid-column: span 2;
-}
-.span-3 {
-  grid-column: span 3;
-}
