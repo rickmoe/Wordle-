@@ -16,20 +16,19 @@ export const useGuesses = (
     setGuesses((prev) => {
       const current = getCurrentGuess(prev).word;
       if (current.length >= wordLength) return prev;
-
-      return prev.map(({ word, results }, index) => {
-        if (index !== prev.length - 1) return { word, results };
-        return { word: word + letter };
-      });
+      return prev.map(({ word, results }) =>
+        word === current ? { word: word + letter } : { word, results }
+      );
     });
   };
 
   const popGuess = () => {
     setGuesses((prev) =>
-      prev.map(({ word, results }, index) => {
-        if (index !== prev.length - 1) return { word, results };
-        return { word: word.slice(0, -1) };
-      })
+      prev.map(({ word, results }, index) =>
+        index === prev.length - 1
+          ? { word: word.slice(0, -1) }
+          : { word, results }
+      )
     );
   };
 
@@ -40,20 +39,21 @@ export const useGuesses = (
         current.length < wordLength ||
         prev.slice(0, -1).find(({ word }) => word === current)
       ) {
-        return prev.map((guess, index) => {
-          if (index !== prev.length - 1) return guess;
-          return { word: guess.word, results: "invalid" };
-        });
+        return prev.map((guess, index) =>
+          index < prev.length - 1
+            ? guess
+            : { word: guess.word, results: "invalid" }
+        );
       }
 
       (async () => {
-        const isValid = await checkWordValidity(current);
-        if (!isValid) {
+        if (!(await checkWordValidity(current))) {
           setGuesses(
-            prev.map((guess, index) => {
-              if (index !== prev.length - 1) return guess;
-              return { word: guess.word, results: "invalid" };
-            })
+            prev.map((guess, index) =>
+              index < prev.length - 1
+                ? guess
+                : { word: guess.word, results: "invalid" }
+            )
           );
           return;
         }

@@ -1,5 +1,5 @@
 import { GameMode } from "../../types/types";
-import { useGameState } from "../../hooks/useGameState";
+import { useGameManager } from "../../hooks/useGameManager";
 import { useWordParams } from "../../hooks/useWordParams";
 import GameDisplay from "../../components/GameDisplay/GameDisplay";
 import Keyboard from "../../components/Keyboard/Keyboard";
@@ -13,7 +13,7 @@ interface GameProps {
 
 const Game = ({ mode, wordLengthBounds: { min, max } }: GameProps) => {
   const { wordLength, maxGuesses, setWordLength } = useWordParams(min, max);
-  const { guesses, gameState, score } = useGameState(
+  const { guesses, gameState, score } = useGameManager(
     mode,
     wordLength,
     maxGuesses,
