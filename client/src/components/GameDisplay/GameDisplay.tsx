@@ -37,9 +37,10 @@ const GameDisplay = ({ guesses, wordLength, maxGuesses }: GameDisplayProps) => {
                     : "")
                 }
               >
-                {tileRow.map((tile, letterNum) => (
+                {tileRow.map((tile, tileIndex) => (
                   <GameTile
-                    key={letterNum}
+                    key={tileIndex}
+                    tileIndex={tileIndex}
                     letter={tile.letter}
                     result={tile.result}
                   />

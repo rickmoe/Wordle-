@@ -1,21 +1,19 @@
 .game-tile {
   max-width: 2.3em;
   min-width: 0.85em;
-  border: 0.5px solid var(--color-neutral-2);
   flex: 1;
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.game-tile.filled {
-  border-color: var(--color-neutral-3);
-}
 
-.game-tile.gray,
-.game-tile.green,
-.game-tile.yellow {
-  border: 0;
+[class="game-tile"] {
+  /* Only tiles with no results and no fill */
+  border: 0.5px solid var(--color-neutral-2);
+}
+.game-tile.filled {
+  border: 2px solid var(--color-neutral-3);
 }
 .game-tile.gray {
   background-color: var(--color-neutral-2);
@@ -36,31 +34,6 @@
   .game-tile.green,
   .game-tile.yellow {
     animation: flip 0.3s linear 1 both;
-  }
-  .game-tile.gray:nth-child(2),
-  .game-tile.green:nth-child(2),
-  .game-tile.yellow:nth-child(2) {
-    animation-delay: 0.1s;
-  }
-  .game-tile.gray:nth-child(3),
-  .game-tile.green:nth-child(3),
-  .game-tile.yellow:nth-child(3) {
-    animation-delay: 0.2s;
-  }
-  .game-tile.gray:nth-child(4),
-  .game-tile.green:nth-child(4),
-  .game-tile.yellow:nth-child(4) {
-    animation-delay: 0.3s;
-  }
-  .game-tile.gray:nth-child(5),
-  .game-tile.green:nth-child(5),
-  .game-tile.yellow:nth-child(5) {
-    animation-delay: 0.4s;
-  }
-  .game-tile.gray:nth-child(6),
-  .game-tile.green:nth-child(6),
-  .game-tile.yellow:nth-child(6) {
-    animation-delay: 0.5s;
   }
 
   @keyframes scale-in {
