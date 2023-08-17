@@ -24,3 +24,12 @@
   border-radius: 0.67em;
   font-size: 0.6em;
 }
+.key svg {
+  height: 1.5em;
+  width: 1.5em;
+  font-weight: inherit;
+  transform: translateY(0.2rem);
+}
+.key svg path {
+  stroke: var(--color-contrast-1);
+}
