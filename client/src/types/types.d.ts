@@ -15,5 +15,3 @@ type Guess = { word: string; results?: Result[] | "invalid" };
 
 /* Game display types */
 export type TileData = { letter: string; result?: Result };
-
-export type svg = React.FC<React.SVGProps<SVGSVGElement>>;

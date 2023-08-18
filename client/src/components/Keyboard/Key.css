@@ -16,20 +16,16 @@
   border-radius: 0.4em;
 }
 
-.key#a {
+#a {
   grid-column: 2 / span 2;
 }
 
-.key#enter {
-  border-radius: 0.67em;
-  font-size: 0.6em;
-}
-.key svg {
+.svg {
   height: 1.5em;
   width: 1.5em;
-  font-weight: inherit;
-  transform: translateY(0.2rem);
+  translate: 0 0.2rem;
 }
-.key svg path {
-  stroke: var(--color-contrast-1);
+#Enter .svg {
+  transform-origin: 50% 50%;
+  transform: scaleX(-1);
 }
