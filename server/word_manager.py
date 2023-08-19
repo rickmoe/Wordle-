@@ -1,23 +1,28 @@
-from words import words as word_list
 import random
 from datetime import date
+from db import connect_db, get_words, get_words_by_length
 
-def get_random_element(array, seed=None):
+db = connect_db()
+cursor = db.cursor()
+
+def get_random_word(words: list[str], seed: int | None = None) -> str:
     rand_gen = random.Random(seed)
-    return array[rand_gen.randint(0, len(array) - 1)]
+    return words[rand_gen.randint(0, len(words) - 1)]
 
-def filter(word_array, word_length):
-    return [word for word in word_array if len(word) == word_length]
+def filter(words: list[str], length: int) -> list[str]:
+    return [word for word in words if len(word) == length]
 
-def get_daily_word():
+def get_daily_word() -> str:
     # Hashing the current date gives a consistent seed daily
     seed = date.today().__hash__()
     print(seed)
-    return get_random_element(word_list, seed)
+    words = get_words(cursor)
+    return get_random_word(words, seed)
 
-def get_random_words(length, count):
-    filtered_words = filter(word_list, length)
-    return  [get_random_element(filtered_words) for _ in range(count)]
+def get_random_words(length: int, num_words: int) -> list[str]:
+    words = get_words_by_length(cursor, length)
+    return  [get_random_word(words) for _ in range(num_words)]
 
-def check_word(word):
-    return word in word_list
+def check_word(word: str) -> bool:
+    words = get_words(cursor)
+    return word in words
