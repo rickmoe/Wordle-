@@ -79,6 +79,7 @@ b {
 
 @media (prefers-reduced-motion: no-preference) {
   * {
-    transition: background-color 0.5s, color 0.5s 0.2s;
+    transition: background-color 0.5s, color 0.5s 0.2s, fill 0.5s 0.2s,
+      stroke 0.5s 0.2s;
   }
 }

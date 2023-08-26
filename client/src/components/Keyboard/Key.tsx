@@ -1,11 +1,10 @@
 import { useCallback } from "react";
-import enterIcon from "../../assets/enter.svg";
-import deleteIcon from "../../assets/delete.svg";
+import { enterIcon, deleteIcon } from "./KeySvgManager";
 import "./Key.css";
 
 const getKeyDisplay = (keyName: string): React.ReactNode => {
-  if (keyName === "Enter") return <img className="svg" src={enterIcon} />;
-  if (keyName === "Backspace") return <img className="svg" src={deleteIcon} />;
+  if (keyName === "Enter") return enterIcon;
+  if (keyName === "Backspace") return deleteIcon;
   return keyName;
 };
 

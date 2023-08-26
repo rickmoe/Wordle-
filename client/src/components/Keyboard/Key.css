@@ -20,12 +20,18 @@
   grid-column: 2 / span 2;
 }
 
-.svg {
+.keyboard svg {
   height: 1.5em;
   width: 1.5em;
   translate: 0 0.2rem;
 }
-#Enter .svg {
+#Enter svg {
   transform-origin: 50% 50%;
   transform: scaleX(-1);
+}
+#Enter svg path {
+  fill: var(--color-contrast-1);
+}
+#Backspace svg path {
+  stroke: var(--color-contrast-1);
 }
