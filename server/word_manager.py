@@ -1,9 +1,11 @@
 import random
 from datetime import date
-from db import connect_db, get_words, get_words_by_length
+from db import connect_db, get_words, get_freq_sum
 
 db = connect_db()
 cursor = db.cursor()
+freq_sum = get_freq_sum(cursor)
+print(freq_sum)
 
 def get_random_word(words: list[str], seed: int | None = None) -> str:
     rand_gen = random.Random(seed)
@@ -20,7 +22,7 @@ def get_daily_word() -> str:
     return get_random_word(words, seed)
 
 def get_random_words(length: int, num_words: int) -> list[str]:
-    words = get_words_by_length(cursor, length)
+    words = get_words(cursor, length)
     return  [get_random_word(words) for _ in range(num_words)]
 
 def check_word(word: str) -> bool:

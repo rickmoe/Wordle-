@@ -42,17 +42,25 @@ def describe_word_table(cursor):
   return cursor.fetchall()
 ###########################
 ##### Table Operations #####
-def get_words(cursor) -> list[str]:
-  cursor.execute(f'SELECT WORD FROM {TABLE_NAME}')
+def get_table_data(cursor) -> list[str]:
+  cursor.execute(f'SELECT * FROM {TABLE_NAME}')
+  return cursor.fetchall()
+
+def get_words(cursor, length: int | None = None, prefix: str = "") -> list[str]:
+  query = f'SELECT WORD FROM {TABLE_NAME} WHERE WORD LIKE "{prefix}%"'
+  if length:
+    query += f' AND CHAR_LENGTH(WORD) = {length}'
+  cursor.execute(query)
   return [word[0] for word in cursor]
 
-def get_words_by_prefix(cursor, prefix: str) -> list[str]:
-  cursor.execute(f'SELECT WORD FROM {TABLE_NAME} WHERE WORD LIKE "{prefix}%"')
-  return [word[0] for word in cursor]
-
-def get_words_by_length(cursor, length: int) -> list[str]:
-  cursor.execute(f'SELECT WORD FROM {TABLE_NAME} WHERE CHAR_LENGTH(WORD) = {length}')
-  return [word[0] for word in cursor]
+def get_freq_sum(cursor, length: int | None = None) -> int:
+  query = f'SELECT SUM(FREQ) AS TOTAL FROM {TABLE_NAME}'
+  if length:
+    f' WHERE CHAR_LENGTH(WORD) = {length}'
+  cursor.execute(query)
+  for (total,) in cursor:
+    return total
+  return -1   # Only reached if error
 
 def insert_word(db, cursor, data: tuple[str, int]) -> None:
   cursor.execute(f'INSERT INTO {TABLE_NAME} (WORD, FREQ) VALUES (%s,%s)', data)
@@ -60,10 +68,6 @@ def insert_word(db, cursor, data: tuple[str, int]) -> None:
 
 def insert_words(db, cursor, dataList: list[tuple[str, int]]) -> None:
   cursor.executemany(f'INSERT INTO {TABLE_NAME} (WORD, FREQ) VALUES (%s,%s)', dataList)
-  db.commit()
-
-def delete_word(db, cursor, word: str) -> None:
-  cursor.execute(f'DELETE FROM {TABLE_NAME} WHERE WORD = "{word}"')
   db.commit()
 ############################
 
@@ -73,6 +77,6 @@ if __name__ == "__main__":
   db = connect_db()
   cursor = db.cursor()
   # insert_words(db, cursor, [('cheek', 6), ('rogue', 3), ('water', 12), ('elect', 2)])
-  print(get_words(cursor))
+  print(get_table_data(cursor))
   db.close()
 ###################################
