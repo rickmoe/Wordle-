@@ -1,18 +1,16 @@
-import random
+from random import Random
+from pandas import read_excel
 from datetime import date
 from db import connect_db, get_words, get_freq_sum
 
 db = connect_db()
 cursor = db.cursor()
 freq_sum = get_freq_sum(cursor)
-print(freq_sum)
+# print(freq_sum)
 
 def get_random_word(words: list[str], seed: int | None = None) -> str:
-    rand_gen = random.Random(seed)
+    rand_gen = Random(seed)
     return words[rand_gen.randint(0, len(words) - 1)]
-
-def filter(words: list[str], length: int) -> list[str]:
-    return [word for word in words if len(word) == length]
 
 def get_daily_word() -> str:
     # Hashing the current date gives a consistent seed daily
@@ -28,3 +26,14 @@ def get_random_words(length: int, num_words: int) -> list[str]:
 def check_word(word: str) -> bool:
     words = get_words(cursor)
     return word in words
+
+# Database Init
+def populate_db():
+    # Data spreadsheet from www.wordfrequency.info
+    word_data = read_excel('./wordFrequency.xlsx', sheet_name=3)
+    word_data = word_data[["word", "wordFreq"]]
+    word_data = word_data.rename(columns={"wordFreq": "freq"})
+    print(word_data)
+
+if __name__ == "__main__":
+    populate_db()

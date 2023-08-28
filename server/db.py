@@ -25,7 +25,6 @@ def connect_db():
     passwd=getenv("DB_PASSWORD"),
     database=DB_NAME
   )
-##############################
 ##### Table Functions #####
 def show_tables(cursor):
   cursor.execute("SHOW TABLES")
@@ -40,7 +39,6 @@ def drop_word_table(cursor):
 def describe_word_table(cursor):
   cursor.execute(f'DESCRIBE {TABLE_NAME}')
   return cursor.fetchall()
-###########################
 ##### Table Operations #####
 def get_table_data(cursor) -> list[str]:
   cursor.execute(f'SELECT * FROM {TABLE_NAME}')
@@ -62,15 +60,9 @@ def get_freq_sum(cursor, length: int | None = None) -> int:
     return total
   return -1   # Only reached if error
 
-def insert_word(db, cursor, data: tuple[str, int]) -> None:
-  cursor.execute(f'INSERT INTO {TABLE_NAME} (WORD, FREQ) VALUES (%s,%s)', data)
-  db.commit()
-
 def insert_words(db, cursor, dataList: list[tuple[str, int]]) -> None:
   cursor.executemany(f'INSERT INTO {TABLE_NAME} (WORD, FREQ) VALUES (%s,%s)', dataList)
   db.commit()
-############################
-
 
 ##### Testing & Database Init #####
 if __name__ == "__main__":
@@ -79,4 +71,3 @@ if __name__ == "__main__":
   # insert_words(db, cursor, [('cheek', 6), ('rogue', 3), ('water', 12), ('elect', 2)])
   print(get_table_data(cursor))
   db.close()
-###################################
