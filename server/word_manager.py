@@ -1,7 +1,8 @@
 from random import Random
 from pandas import read_excel
 from datetime import date
-from db import connect_db, get_words, get_freq_sum
+from enchant import Dict
+from db import connect_db, get_words, get_freq_sum, replace_word_table
 
 db = connect_db()
 cursor = db.cursor()
@@ -29,11 +30,19 @@ def check_word(word: str) -> bool:
 
 # Database Init
 def populate_db():
+    # Read input data from local file
     # Data spreadsheet from www.wordfrequency.info
-    word_data = read_excel('./wordFrequency.xlsx', sheet_name=3)
-    word_data = word_data[["word", "wordFreq"]]
-    word_data = word_data.rename(columns={"wordFreq": "freq"})
-    print(word_data)
+    df = read_excel('./wordFrequency.xlsx', sheet_name=3, usecols=["word", "wordFreq"], dtype={"word": str, "wordFreq": int}).dropna()
+    df["word"] = df["word"].str.lower()
+
+    # Filter unwanted words/phrases
+    df = df[df["word"].str.match(r'^[a-z]+$')]  # Only allow letters
+    english_dict = Dict("en_US")
+    df = df[df["word"].apply(english_dict.check)]   # Only allow English words
+    df = df.groupby("word", as_index=False)["wordFreq"].sum()   # Remove duplicates
+    
+    data = [tuple(row) for row in df.to_numpy()]
+    replace_word_table(db, cursor, data)
 
 if __name__ == "__main__":
     populate_db()
